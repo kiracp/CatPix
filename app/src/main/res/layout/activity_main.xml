@@ -1,48 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/bar"
     android:textAlignment="center"
     android:nestedScrollingEnabled="false"
+    android:rowCount="1"
+    android:columnCount="2"
     android:orientation="horizontal"
     android:clickable="true"
     android:background="#ffffc483"
     android:baselineAligned="false"
     android:transitionGroup="false"
     android:touchscreenBlocksFocus="false"
-    android:gravity="center">
+    android:gravity="center"
+    android:paddingLeft="30dp"
+    android:paddingTop="120dp">
 
-    <!--<Button android:id="@+id/toImageGallery"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/toImageGallery"-->
-        <!--android:textSize="30dp"-->
-        <!--android:minHeight="2dp"-->
-        <!--android:minLines="2"-->
-        <!--android:paddingLeft="10dp"-->
-        <!--android:paddingRight="10dp"-->
-        <!--android:background="#ffffffff" />-->
-
-    <Button android:id="@+id/imageToDecrypt"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show \nImage"
-        android:longClickable="false"
-        android:textSize="30dp"
-        android:minHeight="2dp"
-        android:minLines="2"
-        android:textAlignment="center"
-        android:elegantTextHeight="true"
-        android:clickable="true"
-        android:nestedScrollingEnabled="true"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:padding="30dp"
-        android:background="#ffff9f4c"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="10dp" />
+        android:id="@+id/imageView1"
+        android:src="@drawable/decrypt"
+        android:layout_gravity="center" />
 
     <Button android:id="@+id/imageToEncrypt"
         android:layout_width="wrap_content"
@@ -56,16 +37,40 @@
         android:elegantTextHeight="true"
         android:clickable="true"
         android:nestedScrollingEnabled="true"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
         android:padding="30dp"
         android:background="#ffff9f4c"
-        android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/encrypt"
+        android:layout_gravity="center"
+        android:paddingRight="10dp"/>
+
+
+    <Button android:id="@+id/imageToDecrypt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show \nImage"
+        android:longClickable="false"
+        android:textSize="30dp"
+        android:minHeight="2dp"
+        android:minLines="2"
+        android:textAlignment="center"
+        android:elegantTextHeight="true"
+        android:clickable="true"
+        android:nestedScrollingEnabled="true"
+        android:padding="30dp"
+        android:background="#ffff9f4c"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"/>
+
 
     <ImageView android:id="@+id/forPic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 
-</LinearLayout>
+</GridLayout>
