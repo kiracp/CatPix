@@ -19,5 +19,5 @@
         <activity android:name=".PhotoStreamActivity" />
         <activity android:name=".CipherButtons" />
     </application>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 </manifest>
