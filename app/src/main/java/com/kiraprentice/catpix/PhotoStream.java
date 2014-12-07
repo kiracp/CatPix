@@ -5,15 +5,7 @@ package com.kiraprentice.catpix;
  */
 
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
-
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,10 +18,10 @@ public class PhotoStream extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activityphotostream);
+        setContentView(R.layout.activity_photo_stream);
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
+        gridview.setAdapter(new ImageAdapter());
 
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
