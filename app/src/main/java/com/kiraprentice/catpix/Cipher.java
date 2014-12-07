@@ -2,6 +2,7 @@ package com.kiraprentice.catpix;
 
 import android.content.Context;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -14,7 +15,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.SequenceInputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,21 +40,28 @@ public class Cipher {
     public static boolean encryptImage(InputStream decoy, InputStream sensitive, Context ctx) {
         final int BUFFER_SIZE = 4096;
 
-        String filename = "test.jpg";
+        String filename = "encrypt.jpg";
         try {
-            ArrayList<InputStream> files =
-                    files = new ArrayList<>(Arrays.asList(decoy, getSentinelStream(ctx), sensitive));
+            ArrayList<InputStream> files = new ArrayList<>(Arrays.asList(decoy, sensitive));
 
             Enumeration e = Collections.enumeration(files);
             SequenceInputStream sequenceStream = new SequenceInputStream(e);
-            FileOutputStream outputStream = new FileOutputStream(filename);
 
+            // Write to external storage if possible, fall back on internal storage.
+            File file = null;
+            if (isExternalStorageWritable()) {
+                file = new File(getAlbumStorageDir("image"), filename);
+            } else {
+                file = new File(ctx.getFilesDir(), filename);
+            }
+            FileOutputStream outputStream = new FileOutputStream(file);
             int count;
             byte[] buf = new byte[BUFFER_SIZE];
             while ((count = sequenceStream.read(buf)) != -1) {
                 outputStream.write(buf, 0, count);
             }
             outputStream.close();
+            MediaStore.Images.Media.insertImage(ctx.getContentResolver(), file.getAbsolutePath(), "", "");
         } catch (IOException e) {
             System.err.printf("Unable to open file: %s.\n", filename);
             return false;
@@ -65,35 +75,50 @@ public class Cipher {
      * @param containerImage: the innocuous container image secretly containing sensitive info.
      * @return the sensitive image.
      */
-    public static boolean decryptImage(InputStream containerImage, Context context) {
-        String filename = "output.jpg";
-        boolean found = false;
+    public static boolean decryptImage(InputStream containerImage, Context ctx) {
+        InputStream is = CipherButtons.mInputStream;
+        OutputStream os = null;
         try {
-            File file;
-            if (isExternalStorageWritable()) {
-                file = new File(getAlbumStorageDir("image"), filename);
-            } else {
-                file = new File(context.getFilesDir(), filename);
+            os = new FileOutputStream(new File("decrypt.jpg"));
+            byte[] buffer = new byte[1024];
+            int count;
+            while ((count = is.read(buffer)) > 0) {
+                os.write(buffer, 0, count);
             }
-            file.createNewFile();
-            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            BufferedReader br = new BufferedReader(new InputStreamReader(containerImage));
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (found) {
-                    bw.write(line);
-                    bw.newLine();
-                } else if (line.contains(SENTINEL_VALUE)) {
-                    found = true;
-                }
-            }
-            br.close();
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return found;
+            is.close();
+            os.close();
+            return true;
+
+        } catch (IOException e) {}
+        return false;
+
+//        final int BUFFER_SIZE = 4096;
+//        // container image: input stream: encrypt.jpg
+//        String filename = "decrypt.jpg";
+//        boolean found = false;
+//        try {
+//            File decrypt = null;
+//            if (isExternalStorageWritable()) {
+//                decrypt = new File(getAlbumStorageDir("image"), filename);
+//            } else {
+//                decrypt = new File(ctx.getFilesDir(), filename);
+//            }
+//            FileOutputStream fileOutputStream = new FileOutputStream(decrypt);
+//            // skip fsize bytes
+//            containerImage.read(new byte[(int) CipherButtons.decoySize]);
+//
+//            // read BUFFER_SIZE at a time
+//            byte[] buf = new byte[BUFFER_SIZE];
+//            int count = 0;
+//            while ((count = containerImage.read(buf)) != -1) {
+//                fileOutputStream.write(buf, 0, count);
+//            }
+//            fileOutputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//        return found;
     }
 
     private static InputStream getSentinelStream(Context ctx) {

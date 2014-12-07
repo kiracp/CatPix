@@ -15,6 +15,7 @@ import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,6 +34,8 @@ import static java.net.URLConnection.guessContentTypeFromStream;
 public class CipherButtons extends ActionBarActivity implements View.OnClickListener {
         List<Map<String, String>> fileList = new ArrayList<Map<String,String>>();
         ListAdapter simpleAdapter;
+        static final long decoySize = 32693;
+        static InputStream mInputStream = null;
 
         static final int PICK_IMG_ENCRYPT_REQUEST = 1;
         static final int PICK_IMG_DECRYPT_REQUEST = 2;
@@ -122,6 +125,7 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
                 InputStream inputStream;
                 try {
                     inputStream = getContentResolver().openInputStream(selectedImage);
+                    mInputStream = inputStream;
                     Cipher.encryptImage(decoy, inputStream, getApplicationContext());
                 } catch (FileNotFoundException e) {
                     System.err.println("Could not open file as stream :(");
