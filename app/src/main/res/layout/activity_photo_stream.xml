@@ -3,82 +3,49 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffe6e6e6">
+    android:background="#ffffc483">
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnWidth="500dp"
-        android:numColumns="auto_fit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="1"
         android:verticalSpacing="10dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
         android:nestedScrollingEnabled="true"
         android:smoothScrollbar="true"
         android:background="#ffe6e6e6"
-        android:layout_weight="1"
-
-        />
-
+        android:layout_below="@+id/imageButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
-        android:scaleType="fitEnd"
-        android:src="@drawable/spinner"
+        android:paddingLeft="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login"
         android:cropToPadding="false"
         android:minHeight="30dp"
         android:minWidth="30dp"
+        android:background="#ffffc483"
         android:clickable="true"
-        android:background="#ffe6e6e6"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-     
+        android:layout_alignBottom="@+id/editText"
+        android:layout_toRightOf="@+id/editText"
+        android:layout_toEndOf="@+id/editText" />
+
+
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText" />
 
-    <!--<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
 
-        <!--android:id="@+id/activity_toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:minHeight="?attr/actionBarSize"-->
-        <!--android:background="#ffffc483"-->
-
-        <!--app:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
-        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_marginLeft="25dp"-->
-        <!--android:layout_marginStart="25dp"-->
-        <!--android:layout_marginTop="22dp">-->
-
-        <!--<ImageButton-->
-            <!--android:layout_width="40dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:src="@drawable/toolbar"-->
-            <!--android:background="#ffffff"-->
-            <!--/>-->
-
-        <!--<Button android:id="@+id/toolbarButton"-->
-            <!--android:layout_marginLeft="300dp"-->
-            <!--android:layout_width="10dp"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="#ffffc483"-->
-            <!--/>
-
-
-    </android.support.v7.widget.Toolbar> -->
 
 </RelativeLayout>
+
+

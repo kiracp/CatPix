@@ -8,14 +8,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 /**
- * Created by kiraprentice on 12/6/14.
+ * Created by kiraprentice on 12/7/14.
  */
-public class ImageAdapter extends BaseAdapter {
+public class SecretButtonAdapter extends BaseAdapter{
     private Context mContext;
 
-    public ImageAdapter(Context c) {
-        mContext = c;
-    }
+    public SecretButtonAdapter(Context c) { mContext = c; }
 
     public int getCount() {
         return mThumbIds.length;
@@ -34,23 +32,19 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(700,700));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setLayoutParams(new GridView.LayoutParams(60 ,60));
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } else {
             imageView = (ImageView) convertView;
         }
 
         imageView.setImageResource(mThumbIds[position]);
-
         return imageView;
     }
 
     // references to our images
     private Integer[] mThumbIds = {
-            R.drawable.cat1, R.drawable.cat2,
-            R.drawable.cat3, R.drawable.cat4,
-            R.drawable.cat5, R.drawable.cat6,
+            R.drawable.spinner
     };
-
 
 }

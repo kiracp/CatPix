@@ -29,6 +29,9 @@ public class PhotoStreamActivity extends Activity implements View.OnClickListene
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
 
+        ImageButton secretButton = (ImageButton) findViewById(R.id.imageButton);
+        secretButton.setOnClickListener(PhotoStreamActivity.this);
+
 
         /*
         // This adds buttons to all cat images! disabled for secret key
@@ -54,7 +57,7 @@ public class PhotoStreamActivity extends Activity implements View.OnClickListene
         Intent intent = new Intent(PhotoStreamActivity.this, CipherButtons.class);
         startActivity(intent);
 
-        v.setOnClickListener(PhotoStreamActivity.this); //modify
+        //v.setOnClickListener(PhotoStreamActivity.this); //modify
     }
 
 
