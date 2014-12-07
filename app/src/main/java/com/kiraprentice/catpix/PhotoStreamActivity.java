@@ -32,6 +32,7 @@ public class PhotoStreamActivity extends Activity implements View.OnClickListene
 
 
         /*
+        // This adds buttons to all cat images! disabled for secret key
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -56,34 +57,6 @@ public class PhotoStreamActivity extends Activity implements View.OnClickListene
     }
 
 
-/*
-    @Override
-    public boolean onDoubleTap(MotionEvent e) {
-        Intent intent = new Intent(PhotoStreamActivity.this, CipherButtons.class);
-        startActivity(intent);
-        System.out.println("Doubletap registered");
-        //Toast.makeText(PhotoStreamActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-
-    }
-
-
-
-    public boolean onTouchEvent(MotionEvent event) {
-        // Get the pointer ID
-        mActivePointerId = event.getPointerId(0);
-
-
-        // Use the pointer ID to find the index of the active pointer
-        // and fetch its position
-        int pointerIndex = event.findPointerIndex(mActivePointerId);
-        // Get the pointer's current position
-        float x = event.getX(pointerIndex);
-        float y = event.getY(pointerIndex);
-    }
-    */
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -96,15 +69,5 @@ public class PhotoStreamActivity extends Activity implements View.OnClickListene
         }
         return super.onOptionsItemSelected(item);
     }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+
 }
