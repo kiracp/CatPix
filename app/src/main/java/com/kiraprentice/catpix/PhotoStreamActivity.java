@@ -5,6 +5,7 @@ package com.kiraprentice.catpix;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,8 @@ public class PhotoStreamActivity extends Activity {
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Intent intent = new Intent(PhotoStreamActivity.this, CipherButtons.class);
+                startActivity(intent);
                 Toast.makeText(PhotoStreamActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
