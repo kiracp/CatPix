@@ -46,13 +46,9 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
 
             Button encrypt =  (Button) findViewById(R.id.imageToEncrypt);
             Button decrypt =  (Button) findViewById(R.id.imageToDecrypt);
-            Button toImages = (Button) findViewById(R.id.screenOfImages);
-
 
             encrypt.setOnClickListener(this);
             decrypt.setOnClickListener(this);
-            toImages.setOnClickListener(this);
-
         }
 
     public void onClick(View v) {
@@ -68,22 +64,6 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
                 System.out.println("img to decrypt clicked");
                 startActivityForResult(imageChooser, PICK_IMG_DECRYPT_REQUEST);
                 break;
-
-            case R.id.screenOfImages:
-                System.out.println("Click to go to image screen");
-                startActivity(new Intent(CipherButtons.this, PhotoStreamActivity.class));
-
-                //startActivity();
-                //System.out.println("trying to add an image");
-                //ContentValues values = new ContentValues();
-                //values.put(Images.Media.TITLE, "/assets/images/imrs.jpeg");
-                //values.put(Images.Media.DATE_ADDED, System.currentTimeMillis());
-                //values.put(Images.Media.MIME_TYPE, "image/jpeg");
-
-                //Uri uri = this.getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values);
-
-                //this.getApplicationContext().getContentResolver().delete(data.getData(), null, null);
-
         }
     }
 
