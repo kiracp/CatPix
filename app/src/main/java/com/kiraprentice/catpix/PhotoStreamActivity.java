@@ -4,8 +4,8 @@ package com.kiraprentice.catpix;
  * Created by kiraprentice on 12/6/14.
  */
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +13,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 
-public class PhotoStream extends ActionBarActivity {
+public class PhotoStreamActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,10 +23,9 @@ public class PhotoStream extends ActionBarActivity {
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter());
 
-
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(PhotoStream.this, "" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhotoStreamActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
 

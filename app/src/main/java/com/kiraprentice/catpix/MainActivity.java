@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
             case R.id.screenOfImages:
                 System.out.println("Click to go to image screen");
-                startActivity(new Intent(MainActivity.this, PhotoStream.class));
+                startActivity(new Intent(MainActivity.this, PhotoStreamActivity.class));
 
                 //startActivity();
                 //System.out.println("trying to add an image");

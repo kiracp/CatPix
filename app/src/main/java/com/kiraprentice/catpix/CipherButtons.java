@@ -71,7 +71,7 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
 
             case R.id.screenOfImages:
                 System.out.println("Click to go to image screen");
-                startActivity(new Intent(CipherButtons.this, PhotoStream.class));
+                startActivity(new Intent(CipherButtons.this, PhotoStreamActivity.class));
 
                 //startActivity();
                 //System.out.println("trying to add an image");
