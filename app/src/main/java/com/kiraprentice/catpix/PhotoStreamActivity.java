@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 
@@ -45,15 +44,17 @@ public class PhotoStreamActivity extends Activity implements View.OnClickListene
         */
 
 
-        Button toolbarButton =  (Button) findViewById(R.id.toolbarButton);
+        //ImageButton toolbarButton = (ImageButton) findViewById(R.id.imageButton); //modify
 
-        toolbarButton.setOnClickListener(PhotoStreamActivity.this);
+      //  toolbarButton.setOnClickListener(PhotoStreamActivity.this);
 
     }
 
     public void onClick(View v) {
         Intent intent = new Intent(PhotoStreamActivity.this, CipherButtons.class);
         startActivity(intent);
+
+        v.setOnClickListener(PhotoStreamActivity.this); //modify
     }
 
 
