@@ -48,7 +48,6 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
             Button decrypt =  (Button) findViewById(R.id.imageToDecrypt);
             Button toImages = (Button) findViewById(R.id.screenOfImages);
 
-
             encrypt.setOnClickListener(this);
             decrypt.setOnClickListener(this);
             toImages.setOnClickListener(this);
