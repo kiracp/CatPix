@@ -2,11 +2,15 @@ package com.kiraprentice.catpix;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.SequenceInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +22,7 @@ import java.util.Enumeration;
  */
 public class Cipher {
     private static final String SENTINEL_FILENAME = "sentinel.txt";
+    private static final String SENTINEL_VALUE = "SENTINEL_VALUE";
 
     /**
      * Conceal a sensitive image inside of another image.
@@ -60,7 +65,28 @@ public class Cipher {
      * @return the sensitive image.
      */
     public static boolean decryptImage(FileInputStream containerImage) {
-        return false;
+        try {
+            File file = new File("output.jpg");
+            file.createNewFile();
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            BufferedReader br = new BufferedReader(new InputStreamReader(containerImage));
+            boolean found = false;
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (found) {
+                    bw.write(line);
+                    bw.newLine();
+                } else if (line.contains(SENTINEL_VALUE)) {
+                    found = true;
+                }
+            }
+            br.close();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     private static FileInputStream getSentinelStream(Context ctx) {
