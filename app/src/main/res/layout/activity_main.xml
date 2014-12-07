@@ -7,20 +7,17 @@
     <Button android:id="@+id/imageToEncrypt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/encrypt_image"
-        android:onClick="sendMessageEncrypt"/>
+        android:text="@string/encrypt_image" />
 
     <Button android:id="@+id/imageToDecrypt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/decrypt_image"
-        android:onClick="" />
+        android:text="@string/decrypt_image" />
 
     <Button android:id="@+id/screenOfImages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/toImageGallery"
-        android:onClick=""/>
+        android:text="@string/toImageGallery" />
 
     <ImageView android:id="@+id/forPic"
         android:layout_width="wrap_content"
