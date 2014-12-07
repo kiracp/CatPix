@@ -1,12 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/gridview"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnWidth="150dp"
-    android:numColumns="auto_fit"
-    android:verticalSpacing="10dp"
-    android:horizontalSpacing="10dp"
-    android:stretchMode="columnWidth"
-    android:gravity="center"
-    />
+    android:background="#ffffc483">
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="1"
+        android:verticalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:nestedScrollingEnabled="true"
+        android:smoothScrollbar="true"
+        android:background="#ffe6e6e6"
+        android:layout_below="@+id/imageButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login"
+        android:cropToPadding="false"
+        android:minHeight="30dp"
+        android:minWidth="30dp"
+        android:background="#ffffc483"
+        android:clickable="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        />
+
+    <!-- cat image -->
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/toolbarCat"
+        android:src="@drawable/kitty"
+        android:scaleType="fitCenter"
+        android:cropToPadding="true"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentRight="true"
+        android:minHeight="30dp"
+        android:minWidth="30dp"
+        android:background="#ffffc483"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText" />
+
+    <!--
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logo"
+        android:src="@drawable/toolbar"
+        android:scaleType="fitCenter"/> -->
+
+
+
+</RelativeLayout>
+
+
