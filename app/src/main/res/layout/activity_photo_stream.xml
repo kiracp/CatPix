@@ -19,13 +19,14 @@
         android:layout_below="@+id/imageButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
-        android:paddingLeft="200dp"
         android:scaleType="fitCenter"
         android:src="@drawable/login"
         android:cropToPadding="false"
@@ -33,16 +34,38 @@
         android:minWidth="30dp"
         android:background="#ffffc483"
         android:clickable="true"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_toRightOf="@+id/editText"
-        android:layout_toEndOf="@+id/editText" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        />
 
-
+    <!-- cat image -->
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/toolbarCat"
+        android:src="@drawable/kitty"
+        android:scaleType="fitCenter"
+        android:cropToPadding="true"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentRight="true"
+        android:minHeight="30dp"
+        android:minWidth="30dp"
+        android:background="#ffffc483"
+        />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText" />
+
+    <!--
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logo"
+        android:src="@drawable/toolbar"
+        android:scaleType="fitCenter"/> -->
 
 
 
