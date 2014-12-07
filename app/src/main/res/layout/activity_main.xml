@@ -15,8 +15,8 @@
     android:transitionGroup="false"
     android:touchscreenBlocksFocus="false"
     android:gravity="center"
-    android:paddingLeft="30dp"
-    android:paddingTop="120dp">
+    android:paddingLeft="5dp"
+    android:paddingTop="85dp">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -66,7 +66,6 @@
         android:background="#ffff9f4c"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="50dp"/>
-
 
     <ImageView android:id="@+id/forPic"
         android:layout_width="wrap_content"
