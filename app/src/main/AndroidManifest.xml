@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PhotoStreamActivity" />
+        <activity android:name=".CipherButtons" />
     </application>
 
     <activity
