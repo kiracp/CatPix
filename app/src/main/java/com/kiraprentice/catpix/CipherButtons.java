@@ -1,6 +1,7 @@
 package com.kiraprentice.catpix;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -113,15 +115,19 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 // Find a random decoy image
-                FileInputStream decoy = getDecoyImage();
+                InputStream decoy = getDecoyImage();
 
-                // Encrypt image.
+                // Get sensitive image.
+                Uri selectedImage = data.getData();
+                InputStream inputStream;
+                try {
+                    inputStream = getContentResolver().openInputStream(selectedImage);
+                    Cipher.encryptImage(decoy, inputStream, getApplicationContext());
+                } catch (FileNotFoundException e) {
+                    System.err.println("Could not open file as stream :(");
+                }
 
-
-
-                // Hide chosen photo in decoy
                 // Delete sensitive photo
-                // Save encrypted photo
             }
         } else if (requestCode == PICK_IMG_DECRYPT_REQUEST) {
             if (resultCode == RESULT_OK) {
@@ -140,52 +146,24 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
                 catch (FileNotFoundException e) {
                     System.err.println("Could not open file as stream :(");
                 }
-
-
-//                String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-//                Cursor cursor = getContentResolver().query(selectedImage,
-//                        filePathColumn, null, null, null);
-//                cursor.moveToFirst();
-//
-//                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                String picturePath = cursor.getString(columnIndex);
-//                cursor.close();
-//
-//                ImageView imageView = (ImageView) findViewById(R.id.forPic);
-//                imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
-
             }
         }
     }
 
-    private FileInputStream getDecoyImage() {
-        String[] files = getFilesDir().list();
-        Random rn = new Random();
-        FileInputStream decoy = null;
-        int fileIdx = 0;
-        int tries = 0;
-        while (tries < files.length) {
-            try {
-                fileIdx = rn.nextInt(files.length);
-                decoy = openFileInput(files[fileIdx]);
-                if (isImage(decoy)) break;
-            } catch (FileNotFoundException e) {
-                System.err.printf("Could not find file: %s", files[fileIdx]);
-            }
+    private InputStream getDecoyImage() {
+        try {
+            return getAssets().open("cat1.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        if ((tries >= files.length) || (decoy == null)) {
-            System.err.println("Could not open a file from internal storage...");
-        }
-        return decoy;
+        return null;
     }
 
-    private boolean isImage(FileInputStream file) {
+    private boolean isImage(InputStream file) {
         String guess;
         try {
             guess = guessContentTypeFromStream(file);
+            if (guess == null) return false;
             return guess.equals("image");
         } catch (IOException e) {
             System.err.println("Could not determine content type of file.");
