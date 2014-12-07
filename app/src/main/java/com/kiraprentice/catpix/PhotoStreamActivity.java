@@ -14,10 +14,6 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 public class PhotoStreamActivity extends Activity {
 
     @Override
@@ -30,7 +26,7 @@ public class PhotoStreamActivity extends Activity {
         secretKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PhotoStream.this, CipherButtons.class);
+                Intent intent = new Intent(PhotoStreamActivity.this, CipherButtons.class);
                 startActivity(intent);
             }
         });
