@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.SequenceInputStream;
 import java.util.ArrayList;
@@ -64,13 +65,13 @@ public class Cipher {
      * @param containerImage: the innocuous container image secretly containing sensitive info.
      * @return the sensitive image.
      */
-    public static boolean decryptImage(FileInputStream containerImage) {
+    public static boolean decryptImage(InputStream containerImage, Context context) {
+        boolean found = false;
         try {
-            File file = new File("output.jpg");
+            File file = new File(context.getFilesDir(), "output.jpg");
             file.createNewFile();
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             BufferedReader br = new BufferedReader(new InputStreamReader(containerImage));
-            boolean found = false;
             String line;
             while ((line = br.readLine()) != null) {
                 if (found) {
@@ -86,7 +87,7 @@ public class Cipher {
             e.printStackTrace();
             return false;
         }
-        return true;
+        return found;
     }
 
     private static FileInputStream getSentinelStream(Context ctx) {

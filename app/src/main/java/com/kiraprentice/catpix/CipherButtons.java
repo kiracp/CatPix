@@ -1,11 +1,8 @@
 package com.kiraprentice.catpix;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -13,13 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,12 +112,10 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
         if (requestCode == PICK_IMG_ENCRYPT_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-
-
                 // Find a random decoy image
                 FileInputStream decoy = getDecoyImage();
 
-                // Encrypter.encrypt(decoy,
+                // Encrypt image.
 
 
 
@@ -134,20 +129,31 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
                 // Split from decoy
                 // Save sensitive image to Filesystem
 
-
                 Uri selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                System.out.printf("Selected image path: %s\n", selectedImage);
+                InputStream fileAsStream;
+                try {
+                    fileAsStream = getContentResolver().openInputStream(selectedImage);
+                    boolean success = Cipher.decryptImage(fileAsStream, getApplicationContext());
+                    System.out.println("Decrypt image success?: " + success);
+                }
+                catch (FileNotFoundException e) {
+                    System.err.println("Could not open file as stream :(");
+                }
 
-                Cursor cursor = getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
-                cursor.moveToFirst();
 
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String picturePath = cursor.getString(columnIndex);
-                cursor.close();
+//                String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-                ImageView imageView = (ImageView) findViewById(R.id.forPic);
-                imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+//                Cursor cursor = getContentResolver().query(selectedImage,
+//                        filePathColumn, null, null, null);
+//                cursor.moveToFirst();
+//
+//                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                String picturePath = cursor.getString(columnIndex);
+//                cursor.close();
+//
+//                ImageView imageView = (ImageView) findViewById(R.id.forPic);
+//                imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
 
             }
@@ -175,6 +181,7 @@ public class CipherButtons extends ActionBarActivity implements View.OnClickList
         }
         return decoy;
     }
+
     private boolean isImage(FileInputStream file) {
         String guess;
         try {
