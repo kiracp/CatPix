@@ -10,8 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class PhotoStreamActivity extends Activity {
 
@@ -19,6 +23,16 @@ public class PhotoStreamActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_stream);
+
+        ImageButton secretKey = (ImageButton) findViewById(R.id.photoKey);
+
+        secretKey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PhotoStream.this, CipherButtons.class);
+                startActivity(intent);
+            }
+        });
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
@@ -37,6 +51,8 @@ public class PhotoStreamActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        System.out.println(id);
+
         if (id == R.id.action_settings) {
             return true;
         }
