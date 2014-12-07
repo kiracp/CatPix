@@ -1,6 +1,8 @@
 package com.kiraprentice.catpix;
 
 import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -32,15 +34,13 @@ public class Cipher {
      * @param sensitive: the sensitive image to conceal inside of the container.
      * @return an innocuous image containing the sensitive image.
      */
-    public static boolean encryptImage(File decoy, File sensitive, Context ctx) {
+    public static boolean encryptImage(InputStream decoy, InputStream sensitive, Context ctx) {
         final int BUFFER_SIZE = 4096;
 
-        String filename = decoy.getName() + sensitive.getName();
+        String filename = "test.jpg";
         try {
-            ArrayList<FileInputStream> files;
-            files = new ArrayList<>(Arrays.asList(new FileInputStream(decoy),
-                    getSentinelStream(ctx),
-                    new FileInputStream(sensitive)));
+            ArrayList<InputStream> files =
+                    files = new ArrayList<>(Arrays.asList(decoy, getSentinelStream(ctx), sensitive));
 
             Enumeration e = Collections.enumeration(files);
             SequenceInputStream sequenceStream = new SequenceInputStream(e);
@@ -66,9 +66,15 @@ public class Cipher {
      * @return the sensitive image.
      */
     public static boolean decryptImage(InputStream containerImage, Context context) {
+        String filename = "output.jpg";
         boolean found = false;
         try {
-            File file = new File(context.getFilesDir(), "output.jpg");
+            File file;
+            if (isExternalStorageWritable()) {
+                file = new File(getAlbumStorageDir("image"), filename);
+            } else {
+                file = new File(context.getFilesDir(), filename);
+            }
             file.createNewFile();
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             BufferedReader br = new BufferedReader(new InputStreamReader(containerImage));
@@ -90,12 +96,41 @@ public class Cipher {
         return found;
     }
 
-    private static FileInputStream getSentinelStream(Context ctx) {
+    private static InputStream getSentinelStream(Context ctx) {
         try {
-            return ctx.openFileInput(SENTINEL_FILENAME);
-        } catch (FileNotFoundException e) {
+            return ctx.getAssets().open(SENTINEL_FILENAME);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /* Checks if external storage is available for read and write */
+    private static boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    /* Checks if external storage is available to at least read */
+    private static boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static File getAlbumStorageDir(String albumName) {
+        // Get the directory for the user's public pictures directory.
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), albumName);
+        if (!file.mkdirs()) {
+            System.out.println("Could not mkdir");
+        }
+        return file;
     }
 }
